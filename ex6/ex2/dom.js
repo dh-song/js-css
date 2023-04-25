@@ -33,6 +33,27 @@ window.addEventListener("load", function () {
     dropZone.classList.remove("valid");
     const data = e.dataTransfer.getData("text/plain");
     console.log("drop");
+
+    let file  = e.dataTransfer.files[0];
+
+    let formData = new FormData();
+    formData.append("file", file);
+    formData.append("test", "halala");
+
+    let request = new XMLHttpRequest();
+    request.onload = function(){
+        console.log("On load");
+    }
+
+    request.upload.onprogress = function (){
+        console.log("progress");
+    }
+
+    request.open("POST", "http://localhost:8080/upload");
+    request.send(formData);
+    
+    // xhr.setRequestHeader("Content-Type",  'multipart/form-data');
+   
  }
 
 

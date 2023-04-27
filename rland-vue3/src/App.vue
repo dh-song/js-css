@@ -7,6 +7,7 @@
 export default {
     components: {
         Header,
+        NewMenus
     },
     data() {
 
@@ -33,8 +34,9 @@ export default {
 
 
 <script setup>
-import { computed, onMounted, reactive, ref, watch } from 'vue';
+import { computed, onMounted, reactive, ref, shallowRef, triggerRef, watch } from 'vue';
 import Header from './components/Header.vue';
+import NewMenus from './components/NewMenus.vue';
 // ------------------------------------------------------------------
 let b = ref(30);
 let menu = reactive({
@@ -70,6 +72,14 @@ let total = computed(() => { //리스트 불러올 때 총합
     }
     return result;
 });
+
+let aa =ref({name:'okay'});
+    // aa.value.name = "good";
+
+let bb =shallowRef({name:'okay'});//shallwRef 는 적용 x value.name으로 바로 적용
+
+    // bb.value.name = "good"; 
+
 // -----------------------------------------------------------------
 onMounted(() => {
     console.log("mouted");
@@ -82,6 +92,7 @@ async function load() {
     let rep = await fetch("http://192.168.0.33:8080/menus");
     let json = await rep.json();
     model.list = json.list;
+    model.newList = json.newList;
 
     // let list = reactive([]); 의 reactive까지 덮는다 
     // let model = reactive({ 모델의 속성으로 변경하여 reactive 유지
@@ -102,11 +113,15 @@ function menuDelHandler(e){
     model.list.splice(idx,1);
 }
 
+function inputHandler(){
+    console.log("input");
+    triggerRef(aa);
+}
+
 </script>
 
 <template>
     <Header />
-    
     <div>
         <div>
             <label>검색어</label>
@@ -115,6 +130,8 @@ function menuDelHandler(e){
         hello
         {{ a }}
         {{ b }}
+        {{ aa.name }} <input type="text" v-model="aa.name" @input="inputHandler">
+        {{ bb.name }} <input type="text" v-model="bb.name" @input="inputHandler"><!--기존 ref로 트리거 -->
     </div>
     <div>
         {{ total }} <br>
@@ -132,4 +149,6 @@ function menuDelHandler(e){
             </li>
         </ul>
     </div>
+    <NewMenus />
+    <NewList :list="model.newList" titile= "aa.name" />
 </template>

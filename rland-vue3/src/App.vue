@@ -37,6 +37,7 @@ export default {
 import { computed, onMounted, reactive, ref, shallowRef, triggerRef, watch } from 'vue';
 import Header from './components/Header.vue';
 import NewMenus from './components/NewMenus.vue';
+import Modal from './components/Modal.vue';
 // ------------------------------------------------------------------
 let b = ref(30);
 let menu = reactive({
@@ -79,6 +80,7 @@ let aa =ref({name:'okay'});
 let bb =shallowRef({name:'okay'});//shallwRef 는 적용 x value.name으로 바로 적용
 
     // bb.value.name = "good"; 
+let showModal = ref(false);
 
 // -----------------------------------------------------------------
 onMounted(() => {
@@ -118,6 +120,14 @@ function inputHandler(){
     triggerRef(aa);
 }
 
+function showHandler(){
+    showModal.value = true;
+}
+function dlgOkHandler(a){
+    showModal.value = false;
+    console.log(a);
+}
+
 </script>
 
 <template>
@@ -149,6 +159,14 @@ function inputHandler(){
             </li>
         </ul>
     </div>
-    <NewMenus />
-    <NewList :list="model.newList" titile= "aa.name" />
+
+    <button @click="showHandler">show</button>
+    <!-- <NewMenus /> -->
+    <NewMenus :list="model.newList" titile= "bb.name" type="alert"/>
+    <Modal title="공지사항" :show="showModal" @ok="dlgOkHandler">
+    <div>
+        ㄴㅇ랃르낭민ㅇ<br>
+        dkjfekjsalfjeskalfmevpvev
+    </div>
+    </Modal>
 </template>

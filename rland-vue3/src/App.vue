@@ -1,13 +1,13 @@
-<script setup>
-import Header from './components/Header.vue';
+<!-- <script setup>
+import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
 
-</script>
+</script> -->
 
 <template>
-    <header/>
+    <!-- <header/> -->
 
-    <router-view></router-view>
+    <router-view> </router-view>
 
-    <footer/>
+    <!-- <footer/> -->
 </template>

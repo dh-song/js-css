@@ -1,5 +1,8 @@
 <script setup>
-import UserDetails from '../store/UserDetails';
+// import UserDetails from '../stores/UserDetails';
+import { UseUserDetailsStore } from '../stores/UseUserDetailsStore.js';
+
+let userDetails = UseUserDetailsStore();
 </script>
 
 <template>
@@ -15,8 +18,9 @@ import UserDetails from '../store/UserDetails';
                     <h1>알랜드에 오신 것을 환영합니다.</h1>
                     <h2>부안에 오면 꼭 들리는 카페</h2>
                     <div>
-                        <a href="./menu/list.html" class="btn btn-default">주문하기<span>{{ UserDetails.email }}</span></a>
+                        <a href="./menu/list.html" class="btn btn-default">주문하기</a>
                     </div>
+                    <span>{{ userDetails.email }}</span>
                 </div>
                 <!-- 2 -->
                 <div>

@@ -30,7 +30,9 @@ public class MemberController {
         if(service.isValid(username, password)){
         Member member = service.getByUsername(username);
         dto.put("result", member);
+        dto.put("roles", new String[] {"ADMIN","TEACHER"});
         }
+        
         return new ResponseEntity<Map<String,Object>>(dto,HttpStatus.OK);
     }
 

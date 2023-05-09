@@ -5,7 +5,7 @@ export const UseUserDetailsStore = defineStore("userDetails", {
         id: 0,
         username: null,
         email: null,
-        role: null
+        roles: []
     }),
     getters: {
         isAuthenticated: (state) => state.username == null ? false : true
@@ -14,8 +14,13 @@ export const UseUserDetailsStore = defineStore("userDetails", {
         logout() {
             this.id = 0,
             this.username = null,
-            this.email = null
+            this.email = null,
             this.role = null
+        },
+        hasRole(role){
+        
+           let result =  this.roles.indexOf(role) < 0?false:true;
+            return result;
         }
     }
 })

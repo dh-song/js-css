@@ -18,9 +18,10 @@ function logoutHandler(){
     <header class="header-container">
         <h1 class="d-none">알랜드</h1>
         <div>
-            <a href="index.html" title="index페이지로 이동합니다.">
+            <router-link to="/index"><img src="/image/logo.svg" /></router-link>
+            <!-- <a href="/" title="index페이지로 이동합니다.">
                 <img src="/image/logo.svg" />
-            </a>
+            </a> -->
             <a class="icon icon-menu">메뉴</a>
         </div>
         <nav class="nav-wrap">

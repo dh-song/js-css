@@ -3,6 +3,7 @@
 import { UseUserDetailsStore } from '../stores/UseUserDetailsStore.js';
 
 let userDetails = UseUserDetailsStore();
+console.log(userDetails.role);
 </script>
 
 <template>

@@ -2,10 +2,11 @@
 import { reactive } from 'vue';
 // import userDetails from '../stores/UserDetails.js'
 import { UseUserDetailsStore } from '../stores/UseUserDetailsStore.js';
-import {useRouter} from 'vue-router';
+import {useRouter, useRoute} from 'vue-router';
 
 let userDetails = UseUserDetailsStore();
 let router = useRouter();
+let route = useRoute();
 
 let user = reactive({
   username: "newlec",
@@ -29,8 +30,17 @@ async function loginHandler() {
 
   userDetails.username = json.result.userName;
   userDetails.email = json.result.email;
+  userDetails.roles = json.roles;
 
-  router.push("/index");
+  let returnURL = route.query.returnURL;
+
+  if(returnURL){
+    router.push(returnURL);
+  }else{
+    router.push("/index");
+  }
+
+  
   // this.$router.push("/index");
   // this.$router.go('/index')
 }
@@ -57,7 +67,7 @@ async function loginHandler() {
 
         <div class="sign-in-form-button">
           <div class="wd-100">
-            <input type="submit" value="로그인" class="btn btn-default" @click.preventt="loginHandler" />
+            <input type="submit" value="로그인" class="btn btn-default" @click.prevent="loginHandler" />
           </div>
           <div class="font-14">또는</div>
           <div class="wd-100">

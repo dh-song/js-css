@@ -5,19 +5,38 @@ import Aside from './Aside.vue';
 </script>
 
 <template>
-<Header/>
-<Aside/>
-<router-view>
-</router-view>
-<Footer/>
+    <Header />
+    <Aside />
 
-<!-- 메인페이지 가운데 빗금 문양 -->
-<div class="slash-background">
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
+    <Transition name="fade">
+        <router-view></router-view>
+    </Transition>
+
+
+    <!-- <router-view v-slot="{ Component }">
+        <Transition name="fade">
+            <component :is="component" />
+        </Transition>
+    </router-view> -->
+
+    <Footer />
+
+    <!-- 메인페이지 가운데 빗금 문양 -->
+    <div class="slash-background">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
 </template>
 
 <style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 1.0s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
 </style>

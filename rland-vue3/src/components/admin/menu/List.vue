@@ -53,9 +53,9 @@ function showHandler() {
 
         <section class="menu">
           <div>
-            <a href="../../anonymous/menu/detail.html">
+            <RouterLink to="./3">
               <img src="/image/espresso.svg" alt="에스프레소" />
-            </a>
+            </RouterLink>
           </div>
           <h1>에스프레소</h1>
           <h2>Espresso</h2>
@@ -69,7 +69,7 @@ function showHandler() {
           </div>
         </section>
         <!-- ----------------추천메뉴 목록 -->
-        <Transition>
+        <Transition name="fade">
           <section class="recommend-menu-section" v-if="showRcmdMenu">
             <div class="bl-2 pl-12 flex-cloumn-gap-12">
               <h1>추천 메뉴</h1>
@@ -208,13 +208,13 @@ function showHandler() {
 @import url(/css/admin/menu/list.css);
 @import url(/css/menu.css);
 
-.v-enter-active,
-.v-leave-active {
+.fade-enter-active,
+.fade-leave-active {
   transition: opacity 1.0s ease;
 }
 
-.v-enter-from,
-.v-leave-to {
+.fade-enter-from,
+.fade-leave-to {
   opacity: 0;
 }
 </style>

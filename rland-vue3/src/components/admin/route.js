@@ -1,14 +1,18 @@
 import Layout from './inc/Layout.vue'
 import List from './menu/list.vue'
+import Detail from './menu/Detail.vue'
 import Index from './Index.vue'
 import { UseUserDetailsStore } from "../../stores/UseUserDetailsStore.js";
 const admin =
 {
     path: '/admin', component: Layout, children: [
         { path: "index", component: Index },
-        { path: 'menu', children: [
-                {path: 'list', component: List}
+        {
+            path: 'menu', children: [
+                { path: 'list', component: List },
+                { path: ':id', component: Detail }
             ]
+  
         },
     ],
     beforeEnter(to, from, next) {

@@ -2,7 +2,8 @@
 import { reactive } from 'vue';
 // import userDetails from '../stores/UserDetails.js'
 import { UseUserDetailsStore } from '../stores/UseUserDetailsStore.js';
-import {useRouter, useRoute} from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
+import { decodeCredential } from 'vue3-google-login';
 
 let userDetails = UseUserDetailsStore();
 let router = useRouter();
@@ -16,13 +17,13 @@ let user = reactive({
 
 async function loginHandler() {
   console.log(user);
-  let response = await fetch("http://localhost:8080/members/login",{
+  let response = await fetch("http://localhost:8080/members/login", {
     method: "POST",
-    headers:{
-      "Accept":"application/json",
-      "Content-type" : "application/x-www-form-urlencoded"
+    headers: {
+      "Accept": "application/json",
+      "Content-type": "application/x-www-form-urlencoded"
     },
-    body:`username=${user.username}&password=${user.password}`
+    body: `username=${user.username}&password=${user.password}`
 
   });
   let json = await response.json();
@@ -30,21 +31,38 @@ async function loginHandler() {
 
   userDetails.username = json.result.userName;
   userDetails.email = json.result.email;
-  userDetails.roles = json.roles;
+  userDetails.roles = ["ADMIN", "MEMBER"];
 
   let returnURL = route.query.returnURL;
 
-  if(returnURL){
+  if (returnURL) {
     router.push(returnURL);
-  }else{
+  } else {
     router.push("/index");
   }
 
-  
+
   // this.$router.push("/index");
   // this.$router.go('/index')
 }
+function googleLoginHandler(response) {
+  let userData = decodeCredential(response.credential);
+  console.log(userData);
 
+  userDetails.username = userData.userName;
+  userDetails.email = userData.email;
+  userDetails.roles = ["ADMIN", "MEMBER"];
+
+  let returnURL = route.query.returnURL;
+
+  if (returnURL) {
+    router.push(returnURL);
+  } else {
+    router.push("/index");
+  }
+
+
+}
 
 </script>
 
@@ -58,7 +76,7 @@ async function loginHandler() {
       <form class="sign-in-form">
         <div class="sign-in-form-input">
           <div>
-            <input type="text" class="input-bottom-line" placeholder="아이디" required v-model="user.username"/>
+            <input type="text" class="input-bottom-line" placeholder="아이디" required v-model="user.username" />
           </div>
           <div>
             <input type="password" class="input-bottom-line" placeholder="비밀번호" required v-model="user.password" />
@@ -71,7 +89,8 @@ async function loginHandler() {
           </div>
           <div class="font-14">또는</div>
           <div class="wd-100">
-            <a href="" class="deco icon-logo-google btn btn-outline">구글로 로그인</a>
+            <!-- <a href="" class="deco icon-logo-google btn btn-outline">구글로 로그인</a> -->
+            <GoogleLogin :callback="googleLoginHandler" />
           </div>
         </div>
       </form>

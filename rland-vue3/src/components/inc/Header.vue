@@ -2,6 +2,8 @@
 // import UserDetails from '../../stores/UserDetails';
 import { isNavigationFailure, useRouter } from 'vue-router';
 import { UseUserDetailsStore } from '../../stores/UseUserDetailsStore';
+import {googleLogout} from 'vue3-google-login';
+
 
 let userDetails = UseUserDetailsStore();
 let router = useRouter();
@@ -9,6 +11,7 @@ let router = useRouter();
 function logoutHandler(){
    
     userDetails.logout();
+    googleLogout();
     router.push("/index");
 }
 

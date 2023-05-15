@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,7 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import kor.co.rland.rlandapiboot3.entity.Member;
 import kor.co.rland.rlandapiboot3.service.MemberService;
 
-@RestController
+// @RestController
+@Controller
 @RequestMapping("members")
 public class MemberController {
 

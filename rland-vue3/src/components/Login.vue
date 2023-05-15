@@ -63,6 +63,16 @@ function googleLoginHandler(response) {
 
 
 }
+async function customLoginHandler(resp){
+  fetch(`https://www.googleapis.com/oauth2/v3/userinfo?access_token=${resp.access_token}`)
+  .then(res=>res.json())
+  .then(credential=>{
+    console.log(credential);
+  })
+  .catch(e=>{
+    console.log("error");
+  })
+}
 
 </script>
 
@@ -88,6 +98,9 @@ function googleLoginHandler(response) {
             <input type="submit" value="로그인" class="btn btn-default" @click.prevent="loginHandler" />
           </div>
           <div class="font-14">또는</div>
+          <div class="wd-100">
+            <GoogleLogin :callback="customLoginHandler" />
+          </div>
           <div class="wd-100">
             <!-- <a href="" class="deco icon-logo-google btn btn-outline">구글로 로그인</a> -->
             <GoogleLogin :callback="googleLoginHandler" />
